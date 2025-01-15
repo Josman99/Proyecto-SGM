@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
 	private String url = "jdbc:mysql://localhost:3306/bd_sgm";// URL de la base de datos
 	private String usuario = "root";// Usuario de la base de datos
-	private String contraseña = "admin";// Contraseña de la base de datos
+	private String contraseña = "123456";// Contraseña de la base de datos
 	protected Connection conexion;
 	
 	// Método para abrir la conexión

@@ -1,11 +1,14 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Proyecto_SGM.models.IntervaloModel"%>
+<%@page import="Proyecto_SGM.beans.Intervalo"%>
 <%@page import="Proyecto_SGM.beans.Horario"%>
 <%@page import="Proyecto_SGM.beans.Especialidad"%>
 <%@page import="java.util.List"%>
 <%@page import="Proyecto_SGM.models.EspecialidadModel"%>
 <%@page import="Proyecto_SGM.beans.Paciente"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +16,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-<h1>NUEVA CITA</h1>
+
+	<h1>NUEVA CITA</h1>
 	<%
 	String url = "http://localhost:8080/Proyecto_SGM/";
 	Paciente paciente;
@@ -33,95 +36,127 @@
 		System.out.println(paciente.getApoder());
 	}
 	%>
+	
+	
+	
+	
+	
+	
 
 	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-	
-	<form role="form" method="Get" action="<%=url%>PacienteController">
-	    
-	    <input type="hidden" name="op" value="listarHorario" />
-	    
-	    
-	    <input type="hidden" name="id" id="id" value="<%=paciente.getIdPaciente()%>"> 
-	    <label>Doc Ident</label> <input type="text" name="docIden" value="<%=paciente.getDocIdent()%>"> 
-	    <label> Nombre Completo</label> <input type="text" name="nombres" value="<%=paciente.getNombreCompleto()%>"> 
-	    <label>Edad</label> <input type="text" name="apellidos" value="<%=paciente.getEdad()%>"><br>
-		<br> 
-		
-	    <label>Hora</label> <input type="text"><br><br>
-	         
-	         
-	    <label>Especialidad</label>
-	    <select name="especialidadId">  
-	        <option  >Seleccionar</option>
-	        <%
-	        EspecialidadModel modelo = new EspecialidadModel();
-	        List<Especialidad> listas = modelo.listarEspecialidad();
-	        if (listas != null) {
-	            for (Especialidad especial : listas) {
-	        %>
-	            <option value="<%=especial.getId()%>"><%=especial.getDescripcion()%></option>
-	          
-	        <%
-	            }
-	        } else {
-	        %>
-	            <option>No hay datos</option>
-	        <%
-	        }
-	        %>
-	    </select> 
-	    <input type="submit" name="buscar" value="buscar">  <label>Cita para:</label> <input value=""   >
-	    
-	    <table border="1">
-		    <thead>
-		        <tr>
-		            <td>Id</td>
-		            <td>Dr</td>
-		            <td>Especialidad</td>
-		            <td>Fecha</td>
-		            <td>Horario</td>
-		            <td>Total Cupos</td>
-		            <td>Cupos Disponibles</td>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <%
-		        // Obtener la lista de horarios pasada desde el controlador
-		        List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
-		        
-		        if (horarios != null && !horarios.isEmpty()) {
-		            // Recorrer la lista y mostrar cada horario en una fila de la tabla
-		            for (Horario horario : horarios) {
-		        %>
-			        <tr>
-			            <td><%= horario.getId() %></td>
-			            <td><%= horario.getDoctor() %></td>
-			            <td><%= horario.getEspecialidad() %></td>
-			            <td><%= horario.getFecha() %></td>
-			            <td><%=horario.getHorario()%></td>
-			            <td><%= horario.getTotcupos() %></td>
-			            <td><%= horario.getCupos() %></td>
-			        </tr>
-		        <%
-		            }
-		        } else {
-		        %>
-		        <tr>
-		            <td colspan="8">No hay horarios disponibles para esta especialidad.</td>
-		        </tr>
-		        <%
-		        }
-		        %>
-		    </tbody>
+
+	<form role="form" method="GET" action="<%=url%>PacienteController">
+		<!-- Campo oculto para determinar la operación -->
+		<input type="hidden" name="op" id="op" value="listarHorario" /> <input
+			type="hidden" name="id" id="id" value="<%=paciente.getIdPaciente()%>" />
+
+		<label>Doc Ident</label> <input type="text" name="docIden"
+			value="<%=paciente.getDocIdent()%>" /> <label>Nombre
+			Completo</label> <input type="text" name="nombres"
+			value="<%=paciente.getNombreCompleto()%>" /> <label>Edad</label> <input
+			type="text" name="apellidos" value="<%=paciente.getEdad()%>"><br>
+		<br> <label>Especialidad</label> <select name="especialidadId">
+			<option>Seleccionar</option>
+			<%
+			EspecialidadModel modelo = new EspecialidadModel();
+			List<Especialidad> listas = modelo.listarEspecialidad();
+			if (listas != null) {
+				for (Especialidad especial : listas) {
+			%>
+			<option value="<%=especial.getId()%>"><%=especial.getDescripcion()%></option>
+			<%
+			}
+			} else {
+			%>
+			<option>No hay datos</option>
+			<%
+			}
+			%>
+		</select><br> <br> <br> <label>Hora:</label> <select
+			name="intervalo">
+			<%
+			List<Intervalo> lista = (List<Intervalo>) request.getAttribute("intervalos");
+			if (lista != null && !lista.isEmpty()) {
+				for (Intervalo inter : lista) {
+			%>
+			<option id="intervalo" name="intervalo" value="<%=inter.getId()%>"><%=inter.getHora()%></option>
+			<%
+			}
+			} else {
+			%>
+			<option>No hay horarios</option>
+			<%
+			}
+			%>
+
+
+		</select><br> <br> <label>Fecha</label><input type="date"
+			name="fecha"
+			value="<%=request.getParameter("fecha") != null ? request.getParameter("fecha") : ""%>"><br>
+		<br>
+
+		<!-- Tabla de horarios -->
+		<table border="1">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Dr</td>
+					<td>Especialidad</td>
+					<td>Fecha</td>
+					<td>Horario</td>
+					<td>Total Cupos</td>
+					<td>Cupos Disponibles</td>
+					<td>Operación</td>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+				List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
+				if (horarios != null && !horarios.isEmpty()) {
+					for (Horario horario : horarios) {
+						String fechaFormateada = new SimpleDateFormat("yyyy-MM-dd").format(horario.getFecha());
+				%>
+				<tr>
+					<td><%=horario.getId()%></td>
+					<td><%=horario.getDoctor()%></td>
+					<td><%=horario.getEspecialidad()%></td>
+					<td><%=horario.getFecha()%></td>
+					<td><%=horario.getHorario()%></td>
+					<td><%=horario.getTotcupos()%></td>
+					<td><%=horario.getCupos()%></td>
+					<td><a
+						href="<%=url%>PacienteController?op=listarAtencion&id=<%=paciente.getIdPaciente()%>&fecha=<%=fechaFormateada%>&especialidadId=<%=request.getParameter("especialidadId")%>&ide=<%=horario.getId()%>">
+							Seleccionar </a></td>
+				</tr>
+				<%
+				}
+				} else {
+				%>
+				<tr>
+					<td colspan="8">No hay horarios disponibles para esta
+						especialidad.</td>
+				</tr>
+				<%
+				}
+				%>
+			</tbody>
 		</table>
-	    
-	    
-	    <a href="<%=url%>PacienteController?op=listar">volver</a>
-	    
-	    <input type="submit" name="guardar" value="guardar"><br>
+		<br>
+
+		<!-- Botones de acción -->
+		<input type="submit" name="buscar" value="Buscar"
+			onclick="document.getElementById('op').value = 'listarHorario';">
+		<input type="submit" name="agregar" value="Agregar"
+			onclick="document.getElementById('op').value = 'insertarcita';">
+			
+			
+			
+			
 	</form>
 	
-         
+	
+
+	<a href="<%=url%>PacienteController?op=listar">volver</a>
 
 </body>
 </html>
