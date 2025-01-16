@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SISTEMA DE GESTION DE MEDICA</title>
 
 
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
 
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-custom">
-	  <a class="navbar-brand mr-4" style="color: white; font-weight: 700;"><i class="fa-solid fa-truck-medical"></i> SISTEMA DE GESTION DE CITAS <i class="fa-solid fa-truck-medical"></i></a>
+	  <a class="navbar-brand mr-4" style="color: white; font-weight: 700;"><i class="fa-solid fa-truck-medical"></i> SISTEMA DE GESTION DE MEDICA <i class="fa-solid fa-truck-medical"></i></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -40,11 +40,14 @@
 	      <li class="nav-item">
 	        <a class="nav-link active" style="color: white; font-weight: 700;" aria-current="page" href="<%=url%>CitaController?op=listar">CITAS</a>
 	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link active" style="color: white; font-weight: 700;" aria-current="page" href="<%=url%>HorarioController?op=listar">HORARIOS</a>
+	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          REPORTES
 	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
 	          <a class="dropdown-item" href="#">REPORTE 1</a>
 	          <a class="dropdown-item" href="#">REPORTE 2</a>
 	          <div class="dropdown-divider"></div>

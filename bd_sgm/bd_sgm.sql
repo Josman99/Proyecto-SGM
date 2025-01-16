@@ -33,7 +33,7 @@ CREATE TABLE `cita` (
   KEY `fk_intervalo_idx` (`id_intervalo`),
   CONSTRAINT `fk_cita_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_intervalo` FOREIGN KEY (`id_intervalo`) REFERENCES `intervalos` (`id_intervalos`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `cita` (
 
 LOCK TABLES `cita` WRITE;
 /*!40000 ALTER TABLE `cita` DISABLE KEYS */;
-INSERT INTO `cita` VALUES (1,'2025-01-15',13,3,'2025-01-13'),(2,'2025-01-15',14,3,'2025-01-13'),(3,'2025-01-15',37,4,'2025-06-15'),(4,'2025-01-15',25,3,'2025-01-15'),(5,'2025-01-15',38,12,'2025-06-15'),(6,'2025-01-15',39,8,'2025-06-15'),(7,'2025-01-15',26,12,'2025-01-15');
+INSERT INTO `cita` VALUES (1,'2025-01-15',13,3,'2025-01-13'),(2,'2025-01-15',14,3,'2025-01-13'),(3,'2025-01-15',37,4,'2025-06-15'),(4,'2025-01-15',25,3,'2025-01-15'),(5,'2025-01-15',38,12,'2025-06-15'),(6,'2025-01-15',39,8,'2025-06-15'),(7,'2025-01-15',26,12,'2025-01-15'),(8,'2025-01-16',15,11,'2025-01-15');
 /*!40000 ALTER TABLE `cita` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `horario` (
   PRIMARY KEY (`Id_Horario`),
   KEY `fk_personal_medico_idx` (`Id_Personal_Medico`),
   CONSTRAINT `fk_personal_medico` FOREIGN KEY (`Id_Personal_Medico`) REFERENCES `personalmedico` (`Id_Personal_Medico`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `horario` (
 
 LOCK TABLES `horario` WRITE;
 /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
-INSERT INTO `horario` VALUES (1,1,'2025-01-15','08:00:00','12:00:00',12,11),(2,2,'2025-01-15','08:00:00','12:00:00',12,10),(3,3,'2025-01-15','14:00:00','18:00:00',12,10),(4,4,'2025-06-15','08:00:00','12:00:00',12,9);
+INSERT INTO `horario` VALUES (1,1,'2025-01-15','08:00:00','12:00:00',12,11),(2,2,'2025-01-15','08:00:00','12:00:00',12,9),(3,3,'2025-01-15','14:00:00','18:00:00',12,10),(4,4,'2025-06-15','08:00:00','12:00:00',12,9),(5,6,'2025-01-20','08:00:00','12:00:00',12,12),(6,9,'2025-01-20','08:00:00','12:00:00',12,12),(7,10,'2025-01-20','08:00:00','12:00:00',12,12),(8,11,'2025-01-20','08:00:00','12:00:00',12,12);
 /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ CREATE TABLE `intervalos` (
   PRIMARY KEY (`id_intervalos`),
   KEY `fk_hora_idx` (`id_horario`),
   CONSTRAINT `fk_hora` FOREIGN KEY (`id_horario`) REFERENCES `horario` (`Id_Horario`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +125,7 @@ CREATE TABLE `intervalos` (
 
 LOCK TABLES `intervalos` WRITE;
 /*!40000 ALTER TABLE `intervalos` DISABLE KEYS */;
-INSERT INTO `intervalos` VALUES (1,1,'08:00:00','08:20:00'),(2,1,'08:20:00','08:40:00'),(3,1,'08:40:00','09:00:00'),(4,1,'09:00:00','09:20:00'),(5,1,'09:20:00','09:40:00'),(6,1,'09:40:00','10:00:00'),(7,1,'10:00:00','10:20:00'),(8,1,'10:20:00','10:40:00'),(9,1,'10:40:00','11:00:00'),(10,1,'11:00:00','11:20:00'),(11,1,'11:20:00','11:40:00'),(12,1,'11:40:00','12:00:00'),(13,2,'08:00:00','08:20:00'),(14,2,'08:20:00','08:40:00'),(15,2,'08:40:00','09:00:00'),(16,2,'09:00:00','09:20:00'),(17,2,'09:20:00','09:40:00'),(18,2,'09:40:00','10:00:00'),(19,2,'10:00:00','10:20:00'),(20,2,'10:20:00','10:40:00'),(21,2,'10:40:00','11:00:00'),(22,2,'11:00:00','11:20:00'),(23,2,'11:20:00','11:40:00'),(24,2,'11:40:00','12:00:00'),(25,3,'14:00:00','14:20:00'),(26,3,'14:20:00','14:40:00'),(27,3,'14:40:00','15:00:00'),(28,3,'15:00:00','15:20:00'),(29,3,'15:20:00','15:40:00'),(30,3,'15:40:00','16:00:00'),(31,3,'16:00:00','16:20:00'),(32,3,'16:20:00','16:40:00'),(33,3,'16:40:00','17:00:00'),(34,3,'17:00:00','17:20:00'),(35,3,'17:20:00','17:40:00'),(36,3,'17:40:00','18:00:00'),(37,4,'08:00:00','08:20:00'),(38,4,'08:20:00','08:40:00'),(39,4,'08:40:00','09:00:00'),(40,4,'09:00:00','09:20:00'),(41,4,'09:20:00','09:40:00'),(42,4,'09:40:00','10:00:00'),(43,4,'10:00:00','10:20:00'),(44,4,'10:20:00','10:40:00'),(45,4,'10:40:00','11:00:00'),(46,4,'11:00:00','11:20:00'),(47,4,'11:20:00','11:40:00'),(48,4,'11:40:00','12:00:00');
+INSERT INTO `intervalos` VALUES (1,1,'08:00:00','08:20:00'),(2,1,'08:20:00','08:40:00'),(3,1,'08:40:00','09:00:00'),(4,1,'09:00:00','09:20:00'),(5,1,'09:20:00','09:40:00'),(6,1,'09:40:00','10:00:00'),(7,1,'10:00:00','10:20:00'),(8,1,'10:20:00','10:40:00'),(9,1,'10:40:00','11:00:00'),(10,1,'11:00:00','11:20:00'),(11,1,'11:20:00','11:40:00'),(12,1,'11:40:00','12:00:00'),(13,2,'08:00:00','08:20:00'),(14,2,'08:20:00','08:40:00'),(15,2,'08:40:00','09:00:00'),(16,2,'09:00:00','09:20:00'),(17,2,'09:20:00','09:40:00'),(18,2,'09:40:00','10:00:00'),(19,2,'10:00:00','10:20:00'),(20,2,'10:20:00','10:40:00'),(21,2,'10:40:00','11:00:00'),(22,2,'11:00:00','11:20:00'),(23,2,'11:20:00','11:40:00'),(24,2,'11:40:00','12:00:00'),(25,3,'14:00:00','14:20:00'),(26,3,'14:20:00','14:40:00'),(27,3,'14:40:00','15:00:00'),(28,3,'15:00:00','15:20:00'),(29,3,'15:20:00','15:40:00'),(30,3,'15:40:00','16:00:00'),(31,3,'16:00:00','16:20:00'),(32,3,'16:20:00','16:40:00'),(33,3,'16:40:00','17:00:00'),(34,3,'17:00:00','17:20:00'),(35,3,'17:20:00','17:40:00'),(36,3,'17:40:00','18:00:00'),(37,4,'08:00:00','08:20:00'),(38,4,'08:20:00','08:40:00'),(39,4,'08:40:00','09:00:00'),(40,4,'09:00:00','09:20:00'),(41,4,'09:20:00','09:40:00'),(42,4,'09:40:00','10:00:00'),(43,4,'10:00:00','10:20:00'),(44,4,'10:20:00','10:40:00'),(45,4,'10:40:00','11:00:00'),(46,4,'11:00:00','11:20:00'),(47,4,'11:20:00','11:40:00'),(48,4,'11:40:00','12:00:00'),(49,5,'08:00:00','08:20:00'),(50,5,'08:20:00','08:40:00'),(51,5,'08:40:00','09:00:00'),(52,5,'09:00:00','09:20:00'),(53,5,'09:20:00','09:40:00'),(54,5,'09:40:00','10:00:00'),(55,5,'10:00:00','10:20:00'),(56,5,'10:20:00','10:40:00'),(57,5,'10:40:00','11:00:00'),(58,5,'11:00:00','11:20:00'),(59,5,'11:20:00','11:40:00'),(60,5,'11:40:00','12:00:00'),(61,6,'08:00:00','08:20:00'),(62,6,'08:20:00','08:40:00'),(63,6,'08:40:00','09:00:00'),(64,6,'09:00:00','09:20:00'),(65,6,'09:20:00','09:40:00'),(66,6,'09:40:00','10:00:00'),(67,6,'10:00:00','10:20:00'),(68,6,'10:20:00','10:40:00'),(69,6,'10:40:00','11:00:00'),(70,6,'11:00:00','11:20:00'),(71,6,'11:20:00','11:40:00'),(72,6,'11:40:00','12:00:00'),(73,7,'08:00:00','08:20:00'),(74,7,'08:20:00','08:40:00'),(75,7,'08:40:00','09:00:00'),(76,7,'09:00:00','09:20:00'),(77,7,'09:20:00','09:40:00'),(78,7,'09:40:00','10:00:00'),(79,7,'10:00:00','10:20:00'),(80,7,'10:20:00','10:40:00'),(81,7,'10:40:00','11:00:00'),(82,7,'11:00:00','11:20:00'),(83,7,'11:20:00','11:40:00'),(84,7,'11:40:00','12:00:00'),(85,8,'08:00:00','08:20:00'),(86,8,'08:20:00','08:40:00'),(87,8,'08:40:00','09:00:00'),(88,8,'09:00:00','09:20:00'),(89,8,'09:20:00','09:40:00'),(90,8,'09:40:00','10:00:00'),(91,8,'10:00:00','10:20:00'),(92,8,'10:20:00','10:40:00'),(93,8,'10:40:00','11:00:00'),(94,8,'11:00:00','11:20:00'),(95,8,'11:20:00','11:40:00'),(96,8,'11:40:00','12:00:00');
 /*!40000 ALTER TABLE `intervalos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `paciente` (
 
 LOCK TABLES `paciente` WRITE;
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` VALUES (3,'00000000','PatrickKKK','Garcia Abanto','2000-04-21','Av Colonizacion','890765','Sandra'),(4,'12345676','Dennis Josue','Sanchez Hidalgo','1999-09-18','Av los robles','890765','Joshua'),(5,'78965896','jhgjh','khghk','1998-05-05','jvjh bjv','985965896',''),(6,'98989898','hgv','hghh','1992-06-09','hgh vh','986532698','hj'),(8,'78787878','jkhbjkc','hghj','1998-08-05','hgh gh','78986545','kjnbhj'),(9,'45454545','jhgjh','jhjn','1998-02-02','ufuj hg','989569896','bm'),(10,'12121212','hgjkbb','hgh','1999-06-03','jgfj','7895656','jhj'),(11,'98653265','khgk','jhgjh','1998-03-03','jhgh','54656565','jkkjh'),(12,'32659832','jvj','mhvjmh','1996-03-03','khgk','65986532','hgkh');
+INSERT INTO `paciente` VALUES (3,'00000000','Patrick','Garcia Abanto','2000-04-21','Av Colonizacion','890765','Sandra'),(4,'12345676','Dennis Josue','Sanchez Hidalgo','1999-09-18','Av los robles','890765','Joshua'),(5,'78965896','jhgjh','khghk','1998-05-05','jvjh bjv','985965896',''),(6,'98989898','hgv','hghh','1992-06-09','hgh vh','986532698','hj'),(8,'78787878','jkhbjkc','hghj','1998-08-05','hgh gh','78986545','kjnbhj'),(9,'45454545','jhgjh','jhjn','1998-02-02','ufuj hg','989569896','bm'),(10,'12121212','hgjkbb','hgh','1999-06-03','jgfj','7895656','jhj'),(11,'98653265','khgk','jhgjh','1998-03-03','jhgh','54656565','jkkjh'),(12,'32659832','jvj','mhvjmh','1996-03-03','khgk','65986532','hgkh');
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +184,7 @@ CREATE TABLE `personalmedico` (
   KEY `fk_idEspecialidad_idx` (`Id_Especialidad`),
   CONSTRAINT `fk_idEspecialidad` FOREIGN KEY (`Id_Especialidad`) REFERENCES `especialidades` (`Id_Especialidades`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_idTipoPersonal` FOREIGN KEY (`Id_Tipo_Personal`) REFERENCES `tipopersonalmedico` (`Id_Tipo_Personal`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `personalmedico` (
 
 LOCK TABLES `personalmedico` WRITE;
 /*!40000 ALTER TABLE `personalmedico` DISABLE KEYS */;
-INSERT INTO `personalmedico` VALUES (1,'75843447','Luis','Lopez Garcia','1970-05-12','Av tupac','890765111','8991',2,1),(2,'78945613','Josue','Lopez Montalvan','1980-11-12','Av tupac','890765222','8992',1,5),(3,'78945612','Ana','Perez Gutierrez','1990-09-12','Av Colonizacion','890765333','8993',1,4),(4,'78945630','Denis Josue','Sanchez Hidalgo','2000-05-12','Av tupac','890765','8993',1,4),(6,'985365458','Dorge','Esquivel Salazar','1999-08-04','Jr calle 14','985698324','7854',2,1),(9,'45451515','ngcghg','sdcsdc dssfsd','1999-02-16','cdsfs dsfdsf','454545454','4521',2,1),(10,'55555555','bvnbvnb','mhbhjjvbhj','1998-05-06','hgch','456985632','4562',2,1),(11,'56454545','hjgjcgtcgt','tgtrtrht5','1998-05-05','gtfhdhdhg','4554545','7845',2,1);
+INSERT INTO `personalmedico` VALUES (1,'75843447','Luis','Lopez Garcia','1970-05-12','Av tupac','890765111','8991',2,1),(2,'78945613','Josue','Lopez Montalvan','1980-11-12','Av tupac','986532741','8992',1,5),(3,'78945612','Ana','Perez Gutierrez','1990-09-12','Av Colonizacion','890765333','8993',1,4),(4,'78945630','Denis Josue','Sanchez Hidalgo','2000-05-12','Av tupac','890765','8993',1,4),(6,'985365458','Dorge','Esquivel Salazar','1999-08-04','Jr calle 14','985698324','7854',2,1),(9,'45451515','ngcghg','sdcsdc dssfsd','1999-02-16','cdsfs dsfdsf','454545454','4521',2,1),(10,'55555555','bvnbvnb','mhbhjjvbhj','1998-05-06','hgch','456985632','4562',2,1),(11,'56454545','hjgjcgtcgt','tgtrtrht5','1998-05-05','gtfhdhdhg','4554545','7845',2,1),(16,'11111111','bkbkbk','bjbjbb','1986-02-02','hgfjgjg','6464545','54545',2,1),(17,'22222222','jhggj','hgjh','1995-02-02','jgfhfg','455454','455445',1,13);
 /*!40000 ALTER TABLE `personalmedico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +270,53 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GenerarIntervalosPorId` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GenerarIntervalosPorId`(IN p_id_horario INT)
+BEGIN
+    DECLARE tiempo_ini TIME;
+    DECLARE tiempo_fin TIME;
+
+   
+    DECLARE horario_cursor CURSOR FOR 
+        SELECT Hora_Inicio, Hora_Fin 
+        FROM horario
+        WHERE Id_Horario = p_id_horario;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET @fin_cursor = 1;
+
+  
+    SET @fin_cursor = 0;
+
+    OPEN horario_cursor;
+    leer_cursor: LOOP
+        FETCH horario_cursor INTO tiempo_ini, tiempo_fin;
+        IF @fin_cursor THEN
+            LEAVE leer_cursor;
+        END IF;
+
+      
+        WHILE tiempo_ini < tiempo_fin DO
+            INSERT INTO intervalos (id_horario, hora_ini, hora_fin)
+            VALUES (p_id_horario, tiempo_ini, ADDTIME(tiempo_ini, '00:20:00'));
+            SET tiempo_ini = ADDTIME(tiempo_ini, '00:20:00');
+        END WHILE;
+    END LOOP;
+    CLOSE horario_cursor;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_ActualizarCupo` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -295,6 +342,84 @@ BEGIN
         SET Cupos_Disponible = Cupos_Disponible - 1
         WHERE Id_Horario = v_id_horario AND Cupos_Disponible > 0;
     END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_BuscarCita` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_BuscarCita`(in dni varchar(45))
+BEGIN
+
+select c.id_cita,c.fecha_creada,p.Doc_Id_Paciente,concat(p.Nombres_Paciente,' ',p.Apellidos_Paciente  )as Paciente,
+concat(i.hora_ini,' ',i.hora_fin)as horario,per.Nombres_Personal_Medico ,e.Especialidad,c.fecha from cita c 
+
+inner join paciente p on c.id_paciente=p.id_paciente
+inner join intervalos i on c.id_intervalo=i.id_intervalos 
+inner join horario h on h.Id_Horario=i.id_horario 
+inner join personalmedico per on h.Id_Personal_Medico=per.Id_Personal_Medico
+inner join especialidades e on per.Id_Especialidad=e.Id_Especialidades 
+where p.Doc_Id_Paciente=dni
+order by c.id_cita ;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscarPaciente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscarPaciente`(in dni varchar(45))
+BEGIN
+
+select * from paciente where Doc_Id_Paciente=dni ;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscarPersonal` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscarPersonal`( in dni varchar(45))
+BEGIN
+
+	select p.Id_Personal_Medico,p.Dni_Personal_Medico,p.Nombres_Personal_Medico,p.Apellidos_Personal_Medico,
+	p.FechaNacimiento_Personal_Medico,p.Direccion_Personal_Medico,p.Telefono_Personal_Medico,p.Numero_Colegiatura,
+	t.Tipo_Personal ,e.Especialidad
+	from personalmedico p 
+	inner join tipopersonalmedico t on p.Id_Tipo_Personal=t.Id_Tipo_Personal
+	inner join especialidades e on p.Id_Especialidad=e.Id_Especialidades
+	where Dni_Personal_Medico=dni;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -406,6 +531,30 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertarHorario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertarHorario`(IN id INT,IN fecha DATE,IN inicio TIME,IN fin TIME,IN cupos INT,IN disponible INT,
+out idhorario_out int)
+BEGIN
+    
+    INSERT INTO horario (Id_Personal_Medico, Fecha, Hora_Inicio, Hora_Fin, Total_Cupos, Cupos_Disponible)
+    VALUES (id, fecha, inicio, fin, cupos, disponible);
+    set idhorario_out=last_insert_id();
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_insertarPaciente` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -487,9 +636,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCita`()
 BEGIN
 
 select c.id_cita,c.fecha_creada,p.Doc_Id_Paciente,concat(p.Nombres_Paciente,' ',p.Apellidos_Paciente  )as Paciente,
-concat(i.hora_ini,' ',i.hora_fin)as horario, c.fecha from cita c inner join paciente p on c.id_paciente=p.id_paciente
+concat(i.hora_ini,' ',i.hora_fin)as horario,per.Nombres_Personal_Medico ,e.Especialidad,c.fecha from cita c 
 
-inner join intervalos i on c.id_intervalo=i.id_intervalos order by c.id_cita ;
+
+
+
+inner join paciente p on c.id_paciente=p.id_paciente
+
+inner join intervalos i on c.id_intervalo=i.id_intervalos 
+
+inner join horario h on h.Id_Horario=i.id_horario 
+
+inner join personalmedico per on h.Id_Personal_Medico=per.Id_Personal_Medico
+
+inner join especialidades e on per.Id_Especialidad=e.Id_Especialidades
+
+
+order by c.id_cita ;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -553,6 +716,31 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarEspecialidad`()
 BEGIN
 
 select * from especialidades;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_listarHorario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarHorario`()
+BEGIN
+
+select h.Id_Horario,concat(per.Nombres_Personal_Medico,' ',per.Apellidos_Personal_Medico)as Personal,
+
+h.Fecha,h.Hora_Inicio,h.Hora_Fin,h.Total_Cupos,h.Cupos_Disponible
+      from horario h   inner join personalmedico per on h.Id_Personal_Medico=per.Id_Personal_Medico order by h.Id_Horario;
+
 
 END ;;
 DELIMITER ;
@@ -825,4 +1013,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-15 21:33:32
+-- Dump completed on 2025-01-16 14:30:30

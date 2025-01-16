@@ -12,12 +12,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SISTEMA DE GESTION DE MEDICA</title>
 <script src="https://kit.fontawesome.com/273f05f2f3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <%@ include file='/cabeceraMenu.jsp' %>
+
 	<%
 		Paciente paciente;
 		HttpSession sesion = request.getSession();
@@ -50,22 +50,21 @@
 		<div class="form-group row mb-4">
 			<div class="col-md-4 mt-4">
 		        <label class="form-label">DNI :</label>
-				<input type="text" class="form-control" name="docIden" value="<%=paciente.getDocIdent()%>">
+				<input type="text" class="form-control" name="docIden" value="<%=paciente.getDocIdent()%>" disabled="disabled">
 		    </div>
 		    <div class="col-md-4 mt-4">
 		        <label class="form-label">PACIENTE :</label>
-				<input type="text" class="form-control" name="nombres" value="<%=paciente.getNombreCompleto()%>">
+				<input type="text" class="form-control" name="nombres" value="<%=paciente.getNombreCompleto()%>" disabled="disabled">
 		    </div>
 		    <div class="col-md-4 mt-4">
 		        <label class="form-label">Edad :</label>
-				<input type="text" class="form-control" name="apellidos" value="<%=paciente.getEdad()%>">
+				<input type="text" class="form-control" name="apellidos" value="<%=paciente.getEdad()%>" disabled="disabled">
 		    </div>
 		    
 		    <div class="col-md-6 mt-4 d-flex align-items-center gap-3">
 			    <label class="form-label mb-0 mr-2">Especialidad:</label>
 			    
-			    <select class="form-control" name="especialidadId" style="width: 200px;">
-			        <option>Seleccionar</option>
+			    <select class="form-control" name="especialidadId" id="especialidadId" style="width: 200px;">
 			        <%
 			        EspecialidadModel modelo = new EspecialidadModel();
 			        List<Especialidad> listas = modelo.listarEspecialidad();
@@ -166,14 +165,8 @@
 			    <a href="<%=url%>PacienteController?op=listar" class="btn btn-secondary">Volver</a>
 			    
 			    <input type="submit" class="btn btn-success" name="agregar" value="Agregar" 
-			        onclick="document.getElementById('op').value = 'insertarcita';">
-			</div>
-
-			
-			
-			
-			
-			
+			        onclick="document.getElementById('op').value = 'insertarcita';" >
+			</div>		
 			
 		</div>
 			

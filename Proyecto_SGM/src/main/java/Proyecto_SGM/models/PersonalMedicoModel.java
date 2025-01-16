@@ -166,5 +166,57 @@ public class PersonalMedicoModel extends Conexion {
 			return 0;
 		}	
 	}	
+	public List<PersonalMedico> BuscarPersonal(String dni){
+		
+		List<PersonalMedico>lista=new ArrayList<PersonalMedico>();
+		
+		try {
+			
+			String sql=" CALL sp_buscarPersonal(?)";
+			this.abrirConexion();
+			cst=conexion.prepareCall(sql);
+			cst.setString(1, dni);
+			
+			rs=cst.executeQuery();
+			
+			while (rs.next()) {
+
+				PersonalMedico personal = new PersonalMedico();
+
+				personal.setId(rs.getInt("Id_Personal_Medico"));
+				personal.setDni(rs.getString("Dni_Personal_Medico"));
+				personal.setNombre(rs.getString("Nombres_Personal_Medico"));
+				personal.setApellido(rs.getString("Apellidos_Personal_Medico"));
+				personal.setFechaN(rs.getDate("FechaNacimiento_Personal_Medico"));
+				Date sqlDate = rs.getDate("FechaNacimiento_Personal_Medico");
+				if (sqlDate != null) {
+	                LocalDate fechaNacimiento = sqlDate.toLocalDate();
+	                LocalDate fechaActual = LocalDate.now();
+	                int edad = Period.between(fechaNacimiento, fechaActual).getYears();
+	                personal.setEdadP(edad);
+	            }
+				personal.setDireccion(rs.getString("Direccion_Personal_Medico"));
+				personal.setTelefono(rs.getString("Telefono_Personal_Medico"));
+				personal.setNumeroCole(rs.getString("Numero_Colegiatura"));
+				personal.setPersonal(rs.getString("Tipo_Personal"));
+				personal.setEspecialidad(rs.getString("Especialidad"));
+
+				lista.add(personal);
+
+			}
+			
+			return lista;
+						
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error al buscar 1:"+e.getMessage());
+		}
+		
+		
+		return null;
+		
+		
+		
+	}
 
 }

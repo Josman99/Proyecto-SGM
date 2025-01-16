@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import Proyecto_SGM.beans.Cita;
 import Proyecto_SGM.beans.Paciente;
 import Proyecto_SGM.controller.PacienteController;
 
@@ -158,5 +159,46 @@ public class PacienteModel extends Conexion {
 			return null;
 		}
 		return mipaciente;		
-	}	
+	}
+	public List<Paciente>BuscarPaciente(String dni){
+			
+			List<Paciente>lista=new ArrayList<Paciente>();
+			
+			try {
+				
+				String sql=" CALL sp_buscarPaciente(?)";
+				this.abrirConexion();
+				cs=conexion.prepareCall(sql);
+				cs.setString(1, dni);
+				
+				rs=cs.executeQuery();
+				
+				while (rs.next()) {
+	
+					Paciente paciente = new Paciente();
+					paciente.setIdPaciente(rs.getInt("id_paciente"));
+					paciente.setDocIdent(rs.getString("Doc_Id_Paciente"));
+					paciente.setNombres(rs.getString("Nombres_Paciente"));
+					paciente.setApellidos(rs.getString("Apellidos_Paciente"));
+					paciente.setFechNaci(rs.getDate("FechaNacimiento_Paciente"));
+					paciente.setDireccion(rs.getString("Direccion_Paciente"));
+					paciente.setTelefono(rs.getString("Telefono_Paciente"));
+					paciente.setApoder(rs.getString("Apoderado_Paciente"));
+					lista.add(paciente);
+	
+				}
+				
+				return lista;
+							
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("error al buscar 1:"+e.getMessage());
+			}
+			
+			
+			return null;
+			
+			
+			
+		}
 }

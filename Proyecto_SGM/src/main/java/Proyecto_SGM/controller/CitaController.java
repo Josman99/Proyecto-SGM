@@ -43,6 +43,10 @@ public class CitaController extends HttpServlet {
 				listar(request, response);
 
 				break;
+				
+			case "buscarcita":
+				buscar(request, response);
+				break;
 
 			}
 
@@ -57,6 +61,24 @@ public class CitaController extends HttpServlet {
 		try {
 
 			request.setAttribute("listacita", model.listarCita());
+
+			request.getRequestDispatcher("/cita/listacita.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			System.out.println("error en listar 2:" + e.getMessage());
+		}
+
+	}
+	
+	
+	public void buscar(HttpServletRequest request, HttpServletResponse response) {
+		
+		String dni=request.getParameter("dni");
+
+		try {
+			
+
+			request.setAttribute("listacita", model.BuscarCita(dni));
 
 			request.getRequestDispatcher("/cita/listacita.jsp").forward(request, response);
 

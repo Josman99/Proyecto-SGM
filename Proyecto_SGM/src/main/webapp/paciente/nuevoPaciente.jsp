@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SISTEMA DE GESTION DE MEDICA</title>
 
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <script src="assets/js/bootstrap.min.js">

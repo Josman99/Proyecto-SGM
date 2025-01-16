@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SISTEMA DE GESTION DE MEDICA</title>
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <script src="assets/js/bootstrap.min.js">
 </script>
@@ -26,7 +26,11 @@
 	const direc = document.getElementById('direccion').value.trim();
 	const tele = document.getElementById('telefono').value.trim();
 	const numCol = document.getElementById('numero').value.trim();
-
+	const tipo = document.getElementById('tipo').value.trim();
+    const valorNumerico = Number(tipo);
+	const especialidad = document.getElementById('especialidad').value.trim();
+	const valorNumericoEs = Number(especialidad);
+	
 	if(docIden === ''){
 		alert('Ingrese documento de identidad del Personal');
 		document.getElementById('dni').focus();
@@ -62,6 +66,17 @@
 		document.getElementById('numero').focus();
 		return false;
 	}
+	if(valorNumerico === 0){
+		alert('Ingrese Tipo de Personal');
+		document.getElementById('tipo').focus();
+		return false;
+	}
+	if(valorNumerico === 1 && valorNumericoEs === 1){
+		alert('Ingrese especialidad de Personal');
+		document.getElementById('especialidad').focus();
+		return false;
+	}
+	
 	return true;
 }
 </script>

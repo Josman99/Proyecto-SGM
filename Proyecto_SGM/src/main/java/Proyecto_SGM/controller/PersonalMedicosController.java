@@ -8,12 +8,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Proyecto_SGM.beans.Horario;
 import Proyecto_SGM.beans.Paciente;
 import Proyecto_SGM.beans.PersonalMedico;
+import Proyecto_SGM.models.HorarioModel;
 import Proyecto_SGM.models.PersonalMedicoModel;
 
 
@@ -87,6 +90,16 @@ public class PersonalMedicosController extends HttpServlet {
     		case "eliminar":
     			eliminar(request, response);
     			break;
+    		case "obtenerDoctor":
+				obtenerDoctor(request, response);
+				break;
+
+			case "insertarhorario":	
+				insertarhorario(request, response);
+				break;
+			case "buscarPersonal":
+				buscar(request, response);
+				break;
 			}
 
 		} catch (Exception e) {
@@ -265,5 +278,74 @@ public class PersonalMedicosController extends HttpServlet {
 			System.out.println("error al obtener desde el controlador: "+e.getMessage());
 		}
     }
+    
+    public void obtenerDoctor(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		try {
+			String id = request.getParameter("id");
+			PersonalMedico personalM = model.obtenerPersonalMed(Integer.parseInt(id));
+			if (personalM != null) {
+				request.setAttribute("personalMe", personalM);
+				request.getRequestDispatcher("/PersonalMedico/generarrHorario.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/error404.jsp");
+				response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
+			}
+		} catch (Exception e) {
+			System.out.println("error al obtener desde el controlador: " + e.getMessage());
+		}
+	}
+
+	public void insertarhorario(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			System.out.println("ID Paciente: " + request.getParameter("id"));
+			System.out.println("Fecha:       " + request.getParameter("fecha"));
+			System.out.println("Hora Inicio: " + request.getParameter("horainicio"));
+			System.out.println("Hora Fin:    " + request.getParameter("horafin"));
+			System.out.println("Cupos:       " +request.getParameter("cupo"));
+			System.out.println("Cupos disponible:       " +request.getParameter("cupo"));
+			
+			String horaInicio = request.getParameter("horainicio") + ":00";
+		    String horaFin = request.getParameter("horafin") + ":00";
+
+			Horario horario=new Horario();
+			
+			horario.setPersonal(Integer.parseInt(request.getParameter("id")));
+			horario.setFecha(Date.valueOf(request.getParameter("fecha")));
+			horario.setInicio(Time.valueOf(horaInicio));
+			horario.setFin(Time.valueOf(horaFin));
+			horario.setTotcupos(Integer.parseInt(request.getParameter("cupo")));
+			horario.setDisponible(Integer.parseInt(request.getParameter("cupo")));
+			HorarioModel mo=new HorarioModel();
+			
+			if (mo.insertarHorario(horario)> 0) {
+				request.getSession().setAttribute("exito", "Horario registrada exitosamente");
+			} else {
+				request.getSession().setAttribute("fracaso", "Error al registrar la Horario.");
+			}
+
+			response.sendRedirect(request.getContextPath() + "/HorarioController?op=listar");
+		} catch (Exception e) {
+			System.out.println("Error en insertar Horario 2: " + e.getMessage());
+			
+			
+		}
+
+	}
+	public void buscar(HttpServletRequest request, HttpServletResponse response) {
+		
+		String dni=request.getParameter("dni");
+
+		try {
+			request.setAttribute("listarPersonal", model.BuscarPersonal(dni));
+
+			request.getRequestDispatcher("/PersonalMedico/listaPersonal.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			System.out.println("error en listar 2:" + e.getMessage());
+		}
+
+	}
 
 }

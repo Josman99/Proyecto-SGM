@@ -9,10 +9,74 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SISTEMA DE GESTION DE MEDICA</title>
 
 </head>
 <body>
+<script>
+ function validarFormulario() {
+	const docIden = document.getElementById('dni').value.trim();
+	const nombres = document.getElementById('nombre').value.trim();
+	const apellidos = document.getElementById('apellido').value.trim();
+	const fechNaci = document.getElementById('fecha').value.trim();
+	const direc = document.getElementById('direccion').value.trim();
+	const tele = document.getElementById('telefono').value.trim();
+	const numCol = document.getElementById('numero').value.trim();
+	const tipo = document.getElementById('tipo').value.trim();
+    const valorNumerico = Number(tipo);
+	const especialidad = document.getElementById('especialidad').value.trim();
+	const valorNumericoEs = Number(especialidad);
+	
+	if(docIden === ''){
+		alert('Ingrese documento de identidad del Personal');
+		document.getElementById('dni').focus();
+		return false;
+	}
+	if(nombres === ''){
+		alert('Ingrese nombres del Personal');
+		document.getElementById('nombre').focus();
+		return false;
+	}
+	if(apellidos === ''){
+		alert('Ingrese apellidos del Personal');
+		document.getElementById('apellido').focus();
+		return false;
+	}
+	if(fechNaci === ''){
+		alert('Ingrese fecha de nacimiento del Personal');
+		document.getElementById('fecha').focus();
+		return false;
+	}
+	if(direc === ''){
+		alert('Ingrese direccion del Personal');
+		document.getElementById('direccion').focus();
+		return false;
+	}
+	if(tele === ''){
+		alert('Ingrese telefono del Personal');
+		document.getElementById('telefono').focus();
+		return false;
+	}
+	if(numCol === ''){
+		alert('Ingrese numero de colegiatura del Personal');
+		document.getElementById('numero').focus();
+		return false;
+	}
+	if(valorNumerico === 0){
+		alert('Ingrese Tipo de Personal');
+		document.getElementById('tipo').focus();
+		return false;
+	}
+	if(valorNumerico === 1 && valorNumericoEs === 1){
+		alert('Ingrese especialidad de Personal');
+		document.getElementById('especialidad').focus();
+		return false;
+	}
+	
+	return true;
+}
+</script>
+
 <%@ include file='/cabeceraMenu.jsp' %>
 <%
 	PersonalMedico personalm;
@@ -34,13 +98,13 @@
 		System.out.println(personalm.getEspecialidad());
 		System.out.println(personalm.getIdespecialidad());
 	}
-	%>
+%>
 	
 	<div class="container">
 	
 		<h3 class="text-center mt-3 mb-2">MODIFICAR PERSONAL MEDICO</h3>
 		
-		<form  role="form" action="<%=url%>PersonalMedicosController?op=modificar" method="post">
+		<form  role="form" action="<%=url%>PersonalMedicosController?op=modificar" method="post" onsubmit="return validarFormulario()">
 			
 			<input type="hidden" name="id" id="id" value="<%=personalm.getId()%>">
 			<div class="form-group row mb-4">

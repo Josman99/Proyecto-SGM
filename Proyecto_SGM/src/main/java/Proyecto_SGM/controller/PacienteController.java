@@ -75,10 +75,13 @@ public class PacienteController extends HttpServlet {
     		case "listarAtencion":
 				listarAtencion(request, response);
 
-				break;
-				
+				break;		
 			case "insertarcita":
 				insertarCita(request, response);
+				break;
+				
+			case "buscarpaciente":
+				buscar(request, response);
 				break;
     		}
 		} catch (Exception e) {
@@ -335,6 +338,22 @@ public class PacienteController extends HttpServlet {
 	        }
 	    }
 	}
+	public void buscar(HttpServletRequest request, HttpServletResponse response) {
+			
+			String dni=request.getParameter("dni");
+	
+			try {
+				
+	
+				request.setAttribute("listaPacientes", modelo.BuscarPaciente(dni));
+	
+				request.getRequestDispatcher("/paciente/listaPaciente.jsp").forward(request, response);
+	
+			} catch (Exception e) {
+				System.out.println("error en listar 2:" + e.getMessage());
+			}
+	
+		}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
