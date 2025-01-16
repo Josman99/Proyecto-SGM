@@ -267,7 +267,7 @@ public class PacienteController extends HttpServlet {
 
 	public void listarAtencion(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		try {
-			// Obtener el ID del horario desde la URL
+			
 			int idintervalo = Integer.parseInt(request.getParameter("ide"));
 
 			String ids = request.getParameter("id");
@@ -279,7 +279,6 @@ public class PacienteController extends HttpServlet {
 			List<Horario>hora=mo.listarEspecialidadHorario(idhorario);
 
 
-			// Obtener los intervalos para el horario seleccionado
 			IntervaloModel model = new IntervaloModel();
 			List<Intervalo> lista = model.listarintervalos(idintervalo);
 			

@@ -8,15 +8,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Proyecto_SGM.beans.Cita;
+import Proyecto_SGM.beans.Horario;
 import Proyecto_SGM.beans.Paciente;
 import Proyecto_SGM.beans.PersonalMedico;
+import Proyecto_SGM.models.CitaModel;
+import Proyecto_SGM.models.HorarioModel;
 import Proyecto_SGM.models.PersonalMedicoModel;
-
-
 
 /**
  * Servlet implementation class PersonalMedicosController
@@ -79,14 +82,24 @@ public class PersonalMedicosController extends HttpServlet {
 				insertar(request, response);
 				break;
 			case "obtener":
-    			obtener(request, response);
-    			break;
-    		case "modificar":
-    			modificar(request, response);
-    			break;
-    		case "eliminar":
-    			eliminar(request, response);
-    			break;
+				obtener(request, response);
+				break;
+			case "modificar":
+				modificar(request, response);
+				break;
+			case "eliminar":
+				eliminar(request, response);
+				break;
+
+			case "obtenerDoctor":
+				obtenerDoctor(request, response);
+				break;
+
+			case "insertarhorario":
+				
+				insertarhorario(request, response);
+
+				break;
 			}
 
 		} catch (Exception e) {
@@ -122,53 +135,54 @@ public class PersonalMedicosController extends HttpServlet {
 		}
 
 	}
-	
-	private boolean validar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	boolean res = false;
-    	List<String> ListError = new ArrayList<>();
-    	try {
-			if(request.getParameter("dni").equals("")) {
+
+	private boolean validar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		boolean res = false;
+		List<String> ListError = new ArrayList<>();
+		try {
+			if (request.getParameter("dni").equals("")) {
 				res = true;
 				ListError.add("Ingrese el DNI del Personal medico");
 			}
-			if(request.getParameter("nombre").equals("")) {
+			if (request.getParameter("nombre").equals("")) {
 				res = true;
 				ListError.add("Ingrese los nombres del Personal medico");
 			}
-			if(request.getParameter("apellido").equals("")) {
+			if (request.getParameter("apellido").equals("")) {
 				res = true;
 				ListError.add("Ingrese apellidos del Personal medico");
 			}
-			if(Date.valueOf(request.getParameter("fecha")).equals("")) {
+			if (Date.valueOf(request.getParameter("fecha")).equals("")) {
 				res = true;
 				ListError.add("Ingrese la fecha de Nacimiento del Personal medico");
 			}
-			if(request.getParameter("direccion").equals("")) {
+			if (request.getParameter("direccion").equals("")) {
 				res = true;
 				ListError.add("Ingrese el direccion del Personal medico");
 			}
-			if(request.getParameter("telefono").equals("")) {
+			if (request.getParameter("telefono").equals("")) {
 				res = true;
 				ListError.add("Ingrese el telefono del Personal medico");
 			}
-			if(request.getParameter("numero").equals("")) {
+			if (request.getParameter("numero").equals("")) {
 				res = true;
 				ListError.add("Ingrese el numero de colegiatura del Personal medico");
 			}
-			
+
 			request.setAttribute("respuesta", res);
 			request.setAttribute("listaError", ListError);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.getStackTrace();
 		}
-    	return res;
+		return res;
 	}
 
 	public void insertar(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
-			if(!validar(request, response)) {
+			if (!validar(request, response)) {
 				PersonalMedico personal = new PersonalMedico();
 				personal.setDni(request.getParameter("dni"));
 				personal.setNombre(request.getParameter("nombre"));
@@ -178,9 +192,9 @@ public class PersonalMedicosController extends HttpServlet {
 				personal.setTelefono(request.getParameter("telefono"));
 				personal.setNumeroCole(request.getParameter("numero"));
 				personal.setIdpersonal(Integer.parseInt(request.getParameter("tipo")));
-				if(request.getParameter("especialidad")==null) {
+				if (request.getParameter("especialidad") == null) {
 					personal.setIdespecialidad(1);
-				}else {
+				} else {
 					personal.setIdespecialidad(Integer.parseInt(request.getParameter("especialidad")));
 				}
 
@@ -198,7 +212,7 @@ public class PersonalMedicosController extends HttpServlet {
 
 			} else {
 				request.getRequestDispatcher("/PersonalMedico/nuevoPersonal.jsp").forward(request, response);
-			}	
+			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -206,64 +220,122 @@ public class PersonalMedicosController extends HttpServlet {
 		}
 
 	}
-	public void obtener(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-    	try {
-    		String id = request.getParameter("id");
+
+	public void obtener(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		try {
+			String id = request.getParameter("id");
 			PersonalMedico personalM = model.obtenerPersonalMed(Integer.parseInt(id));
-			if(personalM != null) {
+			if (personalM != null) {
 				request.setAttribute("personalM", personalM);
 				request.getRequestDispatcher("/PersonalMedico/modificarPersonal.jsp").forward(request, response);
-			}else {
-				response.sendRedirect(request.getContextPath()+"/error404.jsp");
-				response.sendRedirect(request.getContextPath()+"/PersonalMedicosController?op=listar");
-			}		
+			} else {
+				response.sendRedirect(request.getContextPath() + "/error404.jsp");
+				response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
+			}
 		} catch (Exception e) {
-			System.out.println("error al obtener desde el controlador: "+e.getMessage());
+			System.out.println("error al obtener desde el controlador: " + e.getMessage());
 		}
-    }
-    
-    public void modificar(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-    	PersonalMedico mipersonal = new PersonalMedico();
-    	try {
-    		mipersonal.setId(Integer.parseInt(request.getParameter("id")));
-    		mipersonal.setDni(request.getParameter("dni"));
-    		mipersonal.setNombre(request.getParameter("nombre"));
-    		mipersonal.setApellido(request.getParameter("apellido"));
-    		mipersonal.setFechaN(Date.valueOf(request.getParameter("fecha")));
-    		mipersonal.setDireccion(request.getParameter("direccion"));
-    		mipersonal.setTelefono(request.getParameter("telefono"));
-    		mipersonal.setNumeroCole(request.getParameter("numero"));
-    		mipersonal.setIdpersonal(Integer.parseInt(request.getParameter("tipo")));
-    		if(request.getParameter("especialidad")==null || Integer.parseInt(request.getParameter("tipo")) != 1 ) {
-    			mipersonal.setIdespecialidad(1);
-			}else {
+	}
+
+	public void modificar(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		PersonalMedico mipersonal = new PersonalMedico();
+		try {
+			mipersonal.setId(Integer.parseInt(request.getParameter("id")));
+			mipersonal.setDni(request.getParameter("dni"));
+			mipersonal.setNombre(request.getParameter("nombre"));
+			mipersonal.setApellido(request.getParameter("apellido"));
+			mipersonal.setFechaN(Date.valueOf(request.getParameter("fecha")));
+			mipersonal.setDireccion(request.getParameter("direccion"));
+			mipersonal.setTelefono(request.getParameter("telefono"));
+			mipersonal.setNumeroCole(request.getParameter("numero"));
+			mipersonal.setIdpersonal(Integer.parseInt(request.getParameter("tipo")));
+			if (request.getParameter("especialidad") == null || Integer.parseInt(request.getParameter("tipo")) != 1) {
+				mipersonal.setIdespecialidad(1);
+			} else {
 				mipersonal.setIdespecialidad(Integer.parseInt(request.getParameter("especialidad")));
 			}
-			if(model.modificarPersonalMedico(mipersonal)>0) {
+			if (model.modificarPersonalMedico(mipersonal) > 0) {
 				request.getSession().setAttribute("exito", "Personal modificado exitosamente");
-				response.sendRedirect(request.getContextPath()+"/PersonalMedicosController?op=listar");
+				response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
 			} else {
-				request.getSession().setAttribute("Fracaso", "Paciente no registrado ya que hay otro Paciente con ese codigo ");
-				response.sendRedirect(request.getContextPath()+"/PersonalMedicosController?op=listar");
-			}	
-			response.sendRedirect(request.getContextPath()+"/PersonalMedicosController?op=listar");
+				request.getSession().setAttribute("Fracaso",
+						"Paciente no registrado ya que hay otro Paciente con ese codigo ");
+				response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
+			}
+			response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
 		} catch (Exception e) {
-			System.out.println("error al modificar desde el controlador: "+e.getMessage());
+			System.out.println("error al modificar desde el controlador: " + e.getMessage());
 		}
-    }
-    public void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException{
-    	try {
-    		int id = Integer.parseInt(request.getParameter("id"));//aqui falta modificar
-			
-			if(model.eliminarPersonalMedico(id)>0) {
+	}
+
+	public void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));// aqui falta modificar
+
+			if (model.eliminarPersonalMedico(id) > 0) {
 				request.setAttribute("Exito", "Paciente eliminado");
-			}else {
+			} else {
 				request.setAttribute("Fracaso", "No se puede eliminar este paciente");
 			}
 			request.getRequestDispatcher("/PersonalMedicosController?op=listar").forward(request, response);
 		} catch (Exception e) {
-			System.out.println("error al obtener desde el controlador: "+e.getMessage());
+			System.out.println("error al obtener desde el controlador: " + e.getMessage());
 		}
-    }
+	}
+
+	public void obtenerDoctor(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		try {
+			String id = request.getParameter("id");
+			PersonalMedico personalM = model.obtenerPersonalMed(Integer.parseInt(id));
+			if (personalM != null) {
+				request.setAttribute("personalMe", personalM);
+				request.getRequestDispatcher("/PersonalMedico/generarrHorario.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/error404.jsp");
+				response.sendRedirect(request.getContextPath() + "/PersonalMedicosController?op=listar");
+			}
+		} catch (Exception e) {
+			System.out.println("error al obtener desde el controlador: " + e.getMessage());
+		}
+	}
+
+	public void insertarhorario(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			System.out.println("ID Paciente: " + request.getParameter("id"));
+			System.out.println("Fecha:       " + request.getParameter("fecha"));
+			System.out.println("Hora Inicio: " + request.getParameter("horainicio"));
+			System.out.println("Hora Fin:    " + request.getParameter("horafin"));
+			System.out.println("Cupos:       " +request.getParameter("cupo"));
+			System.out.println("Cupos disponible:       " +request.getParameter("cupo"));
+			
+			String horaInicio = request.getParameter("horainicio") + ":00";
+		    String horaFin = request.getParameter("horafin") + ":00";
+
+			Horario horario=new Horario();
+			
+			horario.setPersonal(Integer.parseInt(request.getParameter("id")));
+			horario.setFecha(Date.valueOf(request.getParameter("fecha")));
+			horario.setInicio(Time.valueOf(horaInicio));
+			horario.setFin(Time.valueOf(horaFin));
+			horario.setTotcupos(Integer.parseInt(request.getParameter("cupo")));
+			horario.setDisponible(Integer.parseInt(request.getParameter("cupo")));
+			HorarioModel mo=new HorarioModel();
+			
+			if (mo.insertarHorario(horario)> 0) {
+				request.getSession().setAttribute("exito", "Horario registrada exitosamente");
+			} else {
+				request.getSession().setAttribute("fracaso", "Error al registrar la Horario.");
+			}
+
+			response.sendRedirect(request.getContextPath() + "/HorarioController?op=listar");
+		} catch (Exception e) {
+			System.out.println("Error en insertar Horario 2: " + e.getMessage());
+			
+			
+		}
+
+	}
 
 }

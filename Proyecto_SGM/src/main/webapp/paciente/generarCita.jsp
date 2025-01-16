@@ -40,8 +40,6 @@
 	
 	
 	
-	
-	
 
 	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -72,7 +70,9 @@
 			<%
 			}
 			%>
-		</select><br> <br> <br> <label>Hora:</label> <select
+		</select><br> <br> <br> <label>Hora:</label> 
+		
+		<select 
 			name="intervalo">
 			<%
 			List<Intervalo> lista = (List<Intervalo>) request.getAttribute("intervalos");
@@ -90,7 +90,11 @@
 			%>
 
 
-		</select><br> <br> <label>Fecha</label><input type="date"
+		</select>
+		
+		
+		
+		<br> <br> <label>Fecha</label><input type="date"
 			name="fecha"
 			value="<%=request.getParameter("fecha") != null ? request.getParameter("fecha") : ""%>"><br>
 		<br>
@@ -153,6 +157,8 @@
 			
 			
 	</form>
+	
+	
 	
 	
 

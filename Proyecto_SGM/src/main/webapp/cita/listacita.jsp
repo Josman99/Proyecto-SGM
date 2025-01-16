@@ -16,9 +16,28 @@ Citas
 
 	<%
 String url = "http://localhost:8080/Proyecto_SGM/";
+
+
 %>
 
-	<table border=1>
+
+     <label>Buscar (Dni):</label><br><br>
+     
+     
+     
+     <form role="form" method="GET" action="<%=url%>CitaController?">
+     
+     <input type="hidden" name="op" id="op" value="buscarcita" />
+     
+      <input type="text" id="dni" name="dni">
+     
+     
+         <input type="submit" name="buscar" value="Buscar"
+			onclick="document.getElementById('op').value = 'buscarcita';">
+			<input type="submit" name="buscar" value="Todos"
+			onclick="document.getElementById('op').value = 'listar';">
+           
+           <table border=1>
 
 		<thead>
 
@@ -29,6 +48,8 @@ String url = "http://localhost:8080/Proyecto_SGM/";
 				<td>Fecha Creacion</td>
 				<td>Dni</td>
 				<td>Paciente</td>
+				<td>Doctor</td>
+				<td>Especialidad</td>
 				<td>Horario</td>
 				<td>Fecha de Cita</td>
 
@@ -53,6 +74,8 @@ String url = "http://localhost:8080/Proyecto_SGM/";
 				<td><%=cita.getFechacreacion()%></td>
 				<td><%=cita.getDocumento()%></td>
 				<td><%=cita.getPaciente()%></td>
+				<td><%=cita.getNombreDoc() %></td>
+				<td><%=cita.getEspecialidad() %></td>
 				<td><%=cita.getHora()%></td>
 				<td><%=cita.getFechacita()%></td>
 
@@ -65,6 +88,8 @@ String url = "http://localhost:8080/Proyecto_SGM/";
 			%>
 			<tr>
 
+				<td>No hay datos</td>
+				<td>No hay datos</td>
 				<td>No hay datos</td>
 				<td>No hay datos</td>
 				<td>No hay datos</td>
@@ -93,7 +118,17 @@ String url = "http://localhost:8080/Proyecto_SGM/";
 
 
 
+           
+           
+           
+           
+     
+   
+     
+     </form>
+    
 
+	
 
 
 

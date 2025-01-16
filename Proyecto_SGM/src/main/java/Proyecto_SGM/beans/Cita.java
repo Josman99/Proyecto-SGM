@@ -14,6 +14,9 @@ public class Cita {
 	private String hora;
 	private String paciente;
 	private String documento;
+	private String nombreDoc;
+	private String especialidad;
+	
 	
 	
 	public String getDocumento() {
@@ -23,6 +26,29 @@ public class Cita {
 
 	public void setDocumento(String documento) {
 		this.documento = documento;
+	}
+	
+	
+	
+
+
+	public String getNombreDoc() {
+		return nombreDoc;
+	}
+
+
+	public void setNombreDoc(String nombreDoc) {
+		this.nombreDoc = nombreDoc;
+	}
+
+
+	public String getEspecialidad() {
+		return especialidad;
+	}
+
+
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
 	}
 
 

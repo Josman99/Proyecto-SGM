@@ -34,6 +34,8 @@ public class CitaModel extends Conexion {
 				cita.setFechacreacion(rs.getDate("fecha_creada"));
 				//cita.setId_paciente(rs.getInt("id_paciente"));
 			    //cita.setId_horario(rs.getInt("id_intervalo"));
+				cita.setNombreDoc(rs.getString("Nombres_Personal_Medico"));
+				cita.setEspecialidad(rs.getString("Especialidad"));
 				cita.setFechacita(rs.getDate("fecha"));
 				cita.setDocumento(rs.getString("Doc_Id_Paciente"));
 				cita.setHora(rs.getString("horario"));
@@ -119,6 +121,86 @@ public class CitaModel extends Conexion {
 	        return 0;
 	    }
 	}
+	
+	
+	public List<Integer> obtenerIntervalosOcupados() {
+		
+		
+		List<Integer> intervalosOcupados = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT id_intervalo FROM cita";
+			this.abrirConexion();
+			cst=conexion.prepareCall(sql);
+			rs=cst.executeQuery();
+			
+			
+			while(rs.next()) {
+				
+				intervalosOcupados.add(rs.getInt("id_intervalo"));
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error al listar intervalo");
+		}
+        
+
+		return intervalosOcupados;
+        
+    }
+	
+	
+	public List<Cita>BuscarCita(String dni){
+		
+		List<Cita>lista=new ArrayList<Cita>();
+		
+		try {
+			
+			String sql=" CALL sp_BuscarCita(?)";
+			this.abrirConexion();
+			cst=conexion.prepareCall(sql);
+			cst.setString(1, dni);
+			
+			rs=cst.executeQuery();
+			
+			while (rs.next()) {
+
+				Cita cita = new Cita();
+
+				cita.setId(rs.getInt("id_cita"));
+				cita.setFechacreacion(rs.getDate("fecha_creada"));
+				//cita.setId_paciente(rs.getInt("id_paciente"));
+			    //cita.setId_horario(rs.getInt("id_intervalo"));
+				cita.setNombreDoc(rs.getString("Nombres_Personal_Medico"));
+				cita.setEspecialidad(rs.getString("Especialidad"));
+				cita.setFechacita(rs.getDate("fecha"));
+				cita.setDocumento(rs.getString("Doc_Id_Paciente"));
+				cita.setHora(rs.getString("horario"));
+				cita.setPaciente(rs.getString("Paciente"));
+				lista.add(cita);
+
+			}
+			
+			return lista;
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error al buscar 1:"+e.getMessage());
+		}
+		
+		
+		return null;
+		
+		
+		
+	}
+
 
 	
 	

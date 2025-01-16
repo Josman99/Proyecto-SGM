@@ -60,6 +60,7 @@
 							<td>
 								<a type="button" href="<%=url%>PersonalMedicosController?op=obtener&id=<%=personal.getId()%>">Modificar</a>
 								<a type="button" href="<%=url%>PersonalMedicosController?op=eliminar&id=<%=personal.getId()%>">Eliminar</a>
+								<a type="button" href="<%=url%>PersonalMedicosController?op=obtenerDoctor&id=<%=personal.getId()%>">Horario</a>
 							</td>
 			
 						</tr>

@@ -12,10 +12,97 @@ public class Horario {
 	private String horario;
 	private int totcupos;
 	private int cupos;
+	private int personal;
+	private Time inicio;
+	private Time fin;
+	private int totalcupos;
+	private int disponible;
+	private String personalmedico;
 	
 	
 	public Horario() {
 		super();
+	}
+	
+	
+	
+
+
+	public int getDisponible() {
+		return disponible;
+	}
+
+
+
+
+
+	public String getPersonalmedico() {
+		return personalmedico;
+	}
+
+
+
+
+
+	public void setPersonalmedico(String personalmedico) {
+		this.personalmedico = personalmedico;
+	}
+
+
+
+
+
+	public void setDisponible(int disponible) {
+		this.disponible = disponible;
+	}
+
+
+
+
+
+	public int getTotalcupos() {
+		return totalcupos;
+	}
+
+
+
+
+
+	public void setTotalcupos(int totalcupos) {
+		this.totalcupos = totalcupos;
+	}
+
+
+
+
+
+	public int getPersonal() {
+		return personal;
+	}
+
+
+	public void setPersonal(int personal) {
+		this.personal = personal;
+	}
+
+
+	public Time getInicio() {
+		return inicio;
+	}
+
+
+	public void setInicio(Time inicio) {
+		this.inicio = inicio;
+	}
+
+
+	public Time getFin() {
+		return fin;
+	}
+
+
+	public void setFin(Time fin) {
+		this.fin = fin;
 	}
 
 

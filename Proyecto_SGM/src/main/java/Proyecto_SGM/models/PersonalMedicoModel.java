@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Proyecto_SGM.beans.Horario;
 import Proyecto_SGM.beans.Paciente;
 import Proyecto_SGM.beans.PersonalMedico;
-
 
 public class PersonalMedicoModel extends Conexion {
 
@@ -86,11 +86,11 @@ public class PersonalMedicoModel extends Conexion {
 		return 0;
 
 	}
-	
-	public PersonalMedico obtenerPersonalMed(int idPersoMedi) throws SQLException{
+
+	public PersonalMedico obtenerPersonalMed(int idPersoMedi) throws SQLException {
 		PersonalMedico mipersonalm = new PersonalMedico();
 		try {
-			String sql ="CALL sp_listarPersonalId(?)";
+			String sql = "CALL sp_listarPersonalId(?)";
 			this.abrirConexion();
 			cst = conexion.prepareCall(sql);
 			cst.setInt(1, idPersoMedi);
@@ -110,15 +110,16 @@ public class PersonalMedicoModel extends Conexion {
 				return mipersonalm;
 			}
 		} catch (Exception e) {
-			System.out.println("error al obtener desde el modelo: "+e.getMessage());
+			System.out.println("error al obtener desde el modelo: " + e.getMessage());
 			this.cerrarConexion();
 			return null;
 		}
-		return mipersonalm;		
-	}	
-	public int modificarPersonalMedico(PersonalMedico personalM) throws SQLException{
+		return mipersonalm;
+	}
+
+	public int modificarPersonalMedico(PersonalMedico personalM) throws SQLException {
 		try {
-			int filasAfectadas=0; 
+			int filasAfectadas = 0;
 			String sql = "CALL sp_modificarPersonalM(?,?,?,?,?,?,?,?,?,?)";
 			this.abrirConexion();
 			cst = conexion.prepareCall(sql);
@@ -135,14 +136,15 @@ public class PersonalMedicoModel extends Conexion {
 			filasAfectadas = cst.executeUpdate();
 			return filasAfectadas;
 		} catch (Exception e) {
-			System.out.println("error al insertar en el modelo: "+e.getMessage());
+			System.out.println("error al insertar en el modelo: " + e.getMessage());
 			return 0;
 		}
 	}
-	public int eliminarPersonalMedico(int idPersonalM) throws SQLException{
+
+	public int eliminarPersonalMedico(int idPersonalM) throws SQLException {
 		try {
-			int filasAfectadas=0;
-			String sql ="CALL sp_eliminarPersonalM(?)";
+			int filasAfectadas = 0;
+			String sql = "CALL sp_eliminarPersonalM(?)";
 			this.abrirConexion();
 			cst = conexion.prepareCall(sql);
 			cst.setInt(1, idPersonalM);
@@ -150,9 +152,10 @@ public class PersonalMedicoModel extends Conexion {
 			this.cerrarConexion();
 			return filasAfectadas;
 		} catch (Exception e) {
-			System.out.println("error al obtener desde el modelo: "+e.getMessage());
+			System.out.println("error al obtener desde el modelo: " + e.getMessage());
 			return 0;
-		}	
-	}	
+		}
+	}
 
+	
 }
