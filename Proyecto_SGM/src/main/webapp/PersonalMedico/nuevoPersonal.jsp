@@ -11,8 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<script src="assets/js/bootstrap.min.js">
+</script>
 </head>
 <body>
+<%@ include file='/cabeceraMenu.jsp' %>
 <script>
  function validarFormulario() {
 	const docIden = document.getElementById('dni').value.trim();
@@ -61,94 +65,117 @@
 	return true;
 }
 </script>
-
-	<%
-	String url = "http://localhost:8080/Proyecto_SGM/";
-	%>
 	
+	<div class="container">
 	
-	<form  role="form" action="<%=url%>PersonalMedicosController?op=insertar" method="post" onsubmit="return validarFormulario()" >
+		<h2 class="text-center mt-2 mb-2">NUEVO PERSONAL MEDICO</h2>
+		
+		<form  role="form" action="<%=url%>PersonalMedicosController?op=insertar" method="post" onsubmit="return validarFormulario()" >
 	
-		<label>Dni</label> <input type="text" name="dni" id="dni"  ><br><br>
-		<label>Nombres</label> <input type="text" name="nombre" id="nombre"  ><br><br>
-		<label>Apellidos</label> <input type="text" name="apellido" id="apellido"  ><br><br>
-		<label>Fecha Nacimiento</label> <input type="date" name="fecha" id="fecha"  ><br><br>
-		<label>Direccion</label> <input type="text" name="direccion" id="direccion"  ><br><br>
-		<label>Telefono</label> <input type="text" name="telefono" id="telefono"  ><br><br>
-		<label>Numero Colegiatura</label> <input type="text" name="numero" id="numero"  ><br><br>
-		
-		
-		
-		<label>Tipo de Personal</label>
-		<select id="tipo" name="tipo" onchange="mostrarEspecialidades()">
-		               <option value="0" >Seleccionar</option>
-		    <%
-		    TipoModel model = new TipoModel();
-		    List<TipoPersonal> lista = model.listarTipo();
-		    if (lista != null) {
-		        for (TipoPersonal tipo : lista) {
-		    %>
-		    
-		    <option value="<%=tipo.getId() %>"><%=tipo.getDescripcion() %></option>
-		    <%
-		        }
-		    } else {
-		    %>
-		    <option>No hay datos</option>
-		    <%
-		    }
-		    %>
-		</select>
-		<br><br>
-		
-		<label>Tipo de Especialidad</label>
-		<select id="especialidad" name="especialidad" disabled>
-		 
-		 
-
-		    <%
-		    EspecialidadModel modelo = new EspecialidadModel();
-		    List<Especialidad> listas = modelo.listarEspecialidad();
-		    if (listas != null) {
-		        for (Especialidad especial : listas) {
-		    %>
-		    
-		    <option value="<%=especial.getId() %>"><%=especial.getDescripcion() %></option>
-		    <%
-		        }
-		    } else {
-		    %>
-		    <option>No hay datos</option>
-		    <%
-		    }
-		    %>
-		</select>
-		<br><br>
+			
+			<div class="form-group row mb-4">
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">INGRESE DNI</label>
+					<input type="number" class="form-control" name="dni" id="dni" placeholder="DNI" oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);" >
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">NOMBRES</label>
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombres">
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">APELLIDOS</label>
+			        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">FECHA DE NACIMIENTO</label>
+					<input type="date" class="form-control" name="fecha" id="fecha" >
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">DIRECCIÓN</label>
+					<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion">
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">TELÉFONO</label>
+					<input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">NÚMERO DE COLEGIATURA</label>
+					<input type="text" class="form-control" name="numero" id="numero" placeholder="Numero de Colegiatura">
+			      </div>
+			      
+			      
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">TIPO DE PERSONAL</label>
+					<select class="form-control" id="tipo" name="tipo" onchange="mostrarEspecialidades()">
+			               <option value="0" >Seleccionar</option>
+					    <%
+					    TipoModel model = new TipoModel();
+					    List<TipoPersonal> lista = model.listarTipo();
+					    if (lista != null) {
+					        for (TipoPersonal tipo : lista) {
+					    %>
+					    
+					    <option value="<%=tipo.getId() %>"><%=tipo.getDescripcion() %></option>
+					    <%
+					        }
+					    } else {
+					    %>
+					    <option>No hay datos</option>
+					    <%
+					    }
+					    %>
+					</select>
+			      </div>
+			      <div class="col-md-6 mt-4">
+			        <label class="form-label">TIPO ESPECIALIDAD</label>
+					<select class="form-control" id="especialidad" name="especialidad" disabled>
 	
-		<script>
-		function mostrarEspecialidades() {
-		    // Obtener el valor del select tipo
-		    const tipoSelect = document.getElementById('tipo');
-		    const especialidadSelect = document.getElementById('especialidad');
-		    const tipoSeleccionado = parseInt(tipoSelect.value, 10); // Convertir a número
-		    
-		    // Habilitar o deshabilitar el campo especialidad
-		    if (tipoSeleccionado === 1) {
-		        especialidadSelect.disabled = false;
-		    } else {
-		        especialidadSelect.disabled = true;
-		        especialidadSelect.value = "1"; // Opcional: Reiniciar selección
-		    }
-		}
-		</script>
-		
-		
-		
-		<input type="submit" name="guardar" id="guardar" value="Guardar"  >
-		 <a  href="<%=url%>PersonalMedicosController?op=listar">Volver</a>
-		 
-		
-	</form>
+					    <%
+					    EspecialidadModel modelo = new EspecialidadModel();
+					    List<Especialidad> listas = modelo.listarEspecialidad();
+					    if (listas != null) {
+					        for (Especialidad especial : listas) {
+					    %>
+					    
+					    <option value="<%=especial.getId() %>"><%=especial.getDescripcion() %></option>
+					    <%
+					        }
+					    } else {
+					    %>
+					    <option>No hay datos</option>
+					    <%
+					    }
+					    %>
+					</select>
+			      </div>
+			      
+			</div>
+			 
+			<div class="d-flex justify-content-end">
+				<a class="btn btn-primary mr-2" href="<%=url%>PersonalMedicosController?op=listar">volver</a>
+				<input class="btn btn-success " type="submit" name="guardar" id="guardar" value="Guardar"><br>
+			</div>  
+			 
+			
+		</form>
+	</div>
+	
+<script>
+	function mostrarEspecialidades() {
+	    // Obtener el valor del select tipo
+	    const tipoSelect = document.getElementById('tipo');
+	    const especialidadSelect = document.getElementById('especialidad');
+	    const tipoSeleccionado = parseInt(tipoSelect.value, 10); // Convertir a número
+	    
+	    // Habilitar o deshabilitar el campo especialidad
+	    if (tipoSeleccionado === 1) {
+	        especialidadSelect.disabled = false;
+	    } else {
+	        especialidadSelect.disabled = true;
+	        especialidadSelect.value = "1"; 
+	    }
+	}
+</script>	
 
 <%
 	if(request.getAttribute("respuesta") !=null) {

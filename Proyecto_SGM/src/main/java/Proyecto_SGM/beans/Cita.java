@@ -9,9 +9,23 @@ public class Cita {
 	private int id;
 	private int id_paciente;
 	private int id_horario;
-	private Date fecha;
+	private Date fechacreacion;
+	private Date fechacita;
+	private String hora;
+	private String paciente;
+	private String documento;
 	
 	
+	public String getDocumento() {
+		return documento;
+	}
+
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+
+
 	public Cita() {
 		super();
 	}
@@ -20,8 +34,7 @@ public class Cita {
 	public int getId() {
 		return id;
 	}
-
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -47,14 +60,47 @@ public class Cita {
 	}
 
 
-	public Date getFecha() {
-		return fecha;
+	public Date getFechacreacion() {
+		return fechacreacion;
 	}
 
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechacreacion(Date fechacreacion) {
+		this.fechacreacion = fechacreacion;
 	}
+
+
+	public Date getFechacita() {
+		return fechacita;
+	}
+
+
+	public void setFechacita(Date fechacita) {
+		this.fechacita = fechacita;
+	}
+
+
+	public String getHora() {
+		return hora;
+	}
+
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+
+	public String getPaciente() {
+		return paciente;
+	}
+
+
+	public void setPaciente(String paciente) {
+		this.paciente = paciente;
+	}
+
+
+	
 	
 	
 	

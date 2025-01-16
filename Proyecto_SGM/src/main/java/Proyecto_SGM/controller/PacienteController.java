@@ -14,8 +14,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Proyecto_SGM.beans.Cita;
+import Proyecto_SGM.beans.Horario;
+import Proyecto_SGM.beans.Intervalo;
 import Proyecto_SGM.beans.Paciente;
+import Proyecto_SGM.models.CitaModel;
 import Proyecto_SGM.models.HorarioModel;
+import Proyecto_SGM.models.IntervaloModel;
 import Proyecto_SGM.models.PacienteModel;
 
 /**
@@ -67,6 +72,14 @@ public class PacienteController extends HttpServlet {
     		case "listarHorario":
     			listarHorario(request, response);
     			break;
+    		case "listarAtencion":
+				listarAtencion(request, response);
+
+				break;
+				
+			case "insertarcita":
+				insertarCita(request, response);
+				break;
     		}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -244,11 +257,84 @@ public class PacienteController extends HttpServlet {
 			// TODO: handle exception
 			System.out.println("error en buscar horario 2:" + e.getMessage());
 		}
-    	
-    	
-    	
-    	
+    		
     }
+    
+    public void listarAtencion(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		try {
+			// Obtener el ID del horario desde la URL
+			int idintervalo = Integer.parseInt(request.getParameter("ide"));
+
+			String ids = request.getParameter("id");
+			Paciente paciente = modelo.obtenerPacientes(Integer.parseInt(ids));
+			
+			int idhorario = Integer.parseInt(request.getParameter("especialidadId"));
+			HorarioModel mo = new HorarioModel();
+			
+			List<Horario>hora=mo.listarEspecialidadHorario(idhorario);
+
+
+			// Obtener los intervalos para el horario seleccionado
+			IntervaloModel model = new IntervaloModel();
+			List<Intervalo> lista = model.listarintervalos(idintervalo);
+			
+			
+			if (paciente != null) {
+				request.setAttribute("paciente", paciente);
+				request.setAttribute("intervalos", lista);
+				request.setAttribute("horarios", hora);
+				request.getRequestDispatcher("/paciente/generarCita.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/error404.jsp");
+				response.sendRedirect(request.getContextPath() + "/PacienteController?op=listar");
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error al listar atención: " + e.getMessage());
+		}
+	}
+	
+	public void insertarCita(HttpServletRequest request, HttpServletResponse response) {
+	    try {
+	     
+	        System.out.println("ID Paciente: " + request.getParameter("id"));
+	        System.out.println("Intervalo: " + request.getParameter("intervalo"));
+	        System.out.println("Fecha: " + request.getParameter("fecha"));
+
+	       
+	        Cita cita = new Cita();
+	        cita.setId_paciente(Integer.parseInt(request.getParameter("id")));
+	        cita.setId_horario(Integer.parseInt(request.getParameter("intervalo")));
+	        cita.setFechacita(Date.valueOf(request.getParameter("fecha")));  
+
+	        CitaModel mod = new CitaModel();
+	        
+	       
+	        boolean citaExistente = mod.verificarCitaExistente(cita.getId_horario());
+	        if (citaExistente) {
+	            request.getSession().setAttribute("fracaso", "El horario seleccionado ya está ocupado. Por favor, elija otro.");
+	            response.sendRedirect(request.getContextPath() + "/PacienteController?op=listar");
+	            return; 
+	        }
+
+	        
+	        if (mod.insertarCita(cita) > 0) {
+	            request.getSession().setAttribute("exito", "Cita registrada exitosamente");
+	        } else {
+	            request.getSession().setAttribute("fracaso", "Error al registrar la cita.");
+	        }
+	        
+	        response.sendRedirect(request.getContextPath() + "/CitaController?op=listar");
+	    } catch (Exception e) {
+	        System.out.println("Error en insertarCita: " + e.getMessage());
+	        request.getSession().setAttribute("fracaso", "Error al procesar la solicitud.");
+	        try {
+	            response.sendRedirect(request.getContextPath() + "/CitaController?op=listar");
+	        } catch (IOException ioException) {
+	            ioException.printStackTrace();
+	        }
+	    }
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

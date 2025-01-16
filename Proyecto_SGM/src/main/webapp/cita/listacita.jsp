@@ -1,4 +1,4 @@
-
+<%@page import="Proyecto_SGM.beans.Cita"%>
 <%@page import="Proyecto_SGM.beans.Paciente"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,55 +10,85 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	Generar Cita
-
-	<%
-String url = "http://localhost:8080/Proyecto_SGM/";
-%>
+<%@ include file='/cabeceraMenu.jsp' %>
 
 
-	<%
-	List<Paciente> listaPacientes = (List<Paciente>) request.getAttribute("listacita");
-	//verificamos si la lista esta vacia
-	if (listaPacientes != null) {
-		//creamos un iterador sobre la lista
-		for (Paciente paciente : listaPacientes) {
-	%>
+	<div class="container">
 	
-	<label>id Paciente</label> <input  value="<%=paciente.getIdPaciente()%>"   >
+		<h3 class="text-center mt-3 mb-3">LISTA CITAS</h3>
+		
+		<table class="table">
+
+			<thead>
+	
+				<tr class="text-center">
 	
 	
-	<%
-	}
-	} else {
-	%>
-	<tr>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td>No hay datos</td>
-		<td></td>
-	</tr>
-
-	<%
-	}
-	%>
-
-
-
-
-
-
-
-
-
-
-
+					<th>Id</th>
+					<th>Fecha Creacion</th>
+					<th>Dni</th>
+					<th>Paciente</th>
+					<th>Horario</th>
+					<th>Fecha de Cita</th>
+	
+				</tr>
+			</thead>
+	
+	
+			<tbody>
+	
+	
+				<%
+				List<Cita> listaCita = (List<Cita>) request.getAttribute("listacita");
+				//verificamos si la lista esta vacia
+				if (listaCita != null) {
+					//creamos un iterador sobre la lista
+					for (Cita cita : listaCita) {
+				%>
+	
+				<tr class="text-center">
+	
+					<td><%=cita.getId()%></td>
+					<td><%=cita.getFechacreacion()%></td>
+					<td><%=cita.getDocumento()%></td>
+					<td><%=cita.getPaciente()%></td>
+					<td><%=cita.getHora()%></td>
+					<td><%=cita.getFechacita()%></td>
+	
+	
+				</tr>
+	
+				<%
+				}
+				} else {
+				%>
+				<tr>
+	
+					<td>No hay datos</td>
+					<td>No hay datos</td>
+					<td>No hay datos</td>
+					<td>No hay datos</td>
+					<td>No hay datos</td>
+					<td>No hay datos</td>
+	
+				</tr>
+	
+	
+				<%
+				}
+				%>
+	
+	
+			</tbody>
+	
+	
+	
+	
+	
+	
+		</table>
+		
+	</div>
 
 </body>
 </html>

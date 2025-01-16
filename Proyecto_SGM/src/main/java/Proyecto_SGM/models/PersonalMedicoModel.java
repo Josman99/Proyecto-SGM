@@ -1,8 +1,11 @@
 package Proyecto_SGM.models;
 
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,13 @@ public class PersonalMedicoModel extends Conexion {
 				personal.setNombre(rs.getString("Nombres_Personal_Medico"));
 				personal.setApellido(rs.getString("Apellidos_Personal_Medico"));
 				personal.setFechaN(rs.getDate("FechaNacimiento_Personal_Medico"));
+				Date sqlDate = rs.getDate("FechaNacimiento_Personal_Medico");
+				if (sqlDate != null) {
+	                LocalDate fechaNacimiento = sqlDate.toLocalDate();
+	                LocalDate fechaActual = LocalDate.now();
+	                int edad = Period.between(fechaNacimiento, fechaActual).getYears();
+	                personal.setEdadP(edad); // Asegúrate de que el método setEdad(int edad) esté definido en la clase Paciente
+	            }
 				personal.setDireccion(rs.getString("Direccion_Personal_Medico"));
 				personal.setTelefono(rs.getString("Telefono_Personal_Medico"));
 				personal.setNumeroCole(rs.getString("Numero_Colegiatura"));
@@ -104,7 +114,9 @@ public class PersonalMedicoModel extends Conexion {
 				mipersonalm.setDireccion(rs.getString("Direccion_Personal_Medico"));
 				mipersonalm.setTelefono(rs.getString("Telefono_Personal_Medico"));
 				mipersonalm.setNumeroCole(rs.getString("Numero_Colegiatura"));
+				mipersonalm.setIdpersonal(rs.getInt("Id_Tipo_Personal"));
 				mipersonalm.setPersonal(rs.getString("Tipo_Personal"));
+				mipersonalm.setIdespecialidad(rs.getInt("Id_Especialidad"));
 				mipersonalm.setEspecialidad(rs.getString("Especialidad"));
 				this.cerrarConexion();
 				return mipersonalm;

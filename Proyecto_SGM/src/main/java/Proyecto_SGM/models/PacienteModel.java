@@ -140,7 +140,7 @@ public class PacienteModel extends Conexion {
 				mipaciente.setIdPaciente(rs.getInt("id_paciente"));
 				mipaciente.setDocIdent(rs.getString("Doc_Id_Paciente"));
 				mipaciente.setNombreCompleto(rs.getString("Nombre"));
-				mipaciente.setFechNaci(rs.getDate("FechaNacimiento_Paciente"));;
+				mipaciente.setFechNaci(rs.getDate("FechaNacimiento_Paciente"));
 				Date sqlDate = rs.getDate("FechaNacimiento_Paciente");
 				if (sqlDate != null) {
 	                LocalDate fechaNacimiento = sqlDate.toLocalDate();

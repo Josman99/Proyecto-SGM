@@ -19,8 +19,19 @@ public class PersonalMedico {
 	private String personal;
 	private String especialidad;
 	
+	private int edadP;
 	
-	
+
+	public int getEdadP() {
+		return edadP;
+	}
+
+
+	public void setEdadP(int edadP) {
+		this.edadP = edadP;
+	}
+
+
 	public PersonalMedico() {
 		super();
 	}
