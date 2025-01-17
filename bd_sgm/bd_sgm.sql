@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: bd_sgm
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +33,7 @@ CREATE TABLE `cita` (
   KEY `fk_intervalo_idx` (`id_intervalo`),
   CONSTRAINT `fk_cita_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_intervalo` FOREIGN KEY (`id_intervalo`) REFERENCES `intervalos` (`id_intervalos`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `cita` (
 
 LOCK TABLES `cita` WRITE;
 /*!40000 ALTER TABLE `cita` DISABLE KEYS */;
-INSERT INTO `cita` VALUES (1,'2025-01-15',13,3,'2025-01-13'),(2,'2025-01-15',14,3,'2025-01-13'),(3,'2025-01-15',37,4,'2025-06-15'),(4,'2025-01-15',25,3,'2025-01-15'),(5,'2025-01-15',38,12,'2025-06-15'),(6,'2025-01-15',39,8,'2025-06-15'),(7,'2025-01-15',26,12,'2025-01-15'),(8,'2025-01-16',15,11,'2025-01-15');
+INSERT INTO `cita` VALUES (1,'2025-01-15',13,3,'2025-01-13'),(2,'2025-01-15',14,3,'2025-01-13'),(3,'2025-01-15',37,4,'2025-06-15'),(4,'2025-01-15',25,3,'2025-01-15'),(5,'2025-01-15',38,12,'2025-06-15'),(6,'2025-01-15',39,8,'2025-06-15'),(7,'2025-01-15',26,12,'2025-01-15'),(8,'2025-01-16',15,11,'2025-01-15'),(9,'2025-01-16',16,3,'2025-01-20');
 /*!40000 ALTER TABLE `cita` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `horario` (
 
 LOCK TABLES `horario` WRITE;
 /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
-INSERT INTO `horario` VALUES (1,1,'2025-01-15','08:00:00','12:00:00',12,11),(2,2,'2025-01-15','08:00:00','12:00:00',12,9),(3,3,'2025-01-15','14:00:00','18:00:00',12,10),(4,4,'2025-06-15','08:00:00','12:00:00',12,9),(5,6,'2025-01-20','08:00:00','12:00:00',12,12),(6,9,'2025-01-20','08:00:00','12:00:00',12,12),(7,10,'2025-01-20','08:00:00','12:00:00',12,12),(8,11,'2025-01-20','08:00:00','12:00:00',12,12);
+INSERT INTO `horario` VALUES (1,1,'2025-01-20','08:00:00','12:00:00',12,11),(2,2,'2025-01-20','08:00:00','12:00:00',12,8),(3,3,'2025-01-20','14:00:00','18:00:00',12,10),(4,4,'2025-01-20','08:00:00','12:00:00',12,9),(5,6,'2025-01-20','08:00:00','12:00:00',12,12),(6,9,'2025-01-20','08:00:00','12:00:00',12,12),(7,10,'2025-01-20','08:00:00','12:00:00',12,12),(8,11,'2025-01-20','08:00:00','12:00:00',12,12);
 /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `paciente` (
 
 LOCK TABLES `paciente` WRITE;
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` VALUES (3,'00000000','Patrick','Garcia Abanto','2000-04-21','Av Colonizacion','890765','Sandra'),(4,'12345676','Dennis Josue','Sanchez Hidalgo','1999-09-18','Av los robles','890765','Joshua'),(5,'78965896','jhgjh','khghk','1998-05-05','jvjh bjv','985965896',''),(6,'98989898','hgv','hghh','1992-06-09','hgh vh','986532698','hj'),(8,'78787878','jkhbjkc','hghj','1998-08-05','hgh gh','78986545','kjnbhj'),(9,'45454545','jhgjh','jhjn','1998-02-02','ufuj hg','989569896','bm'),(10,'12121212','hgjkbb','hgh','1999-06-03','jgfj','7895656','jhj'),(11,'98653265','khgk','jhgjh','1998-03-03','jhgh','54656565','jkkjh'),(12,'32659832','jvj','mhvjmh','1996-03-03','khgk','65986532','hgkh');
+INSERT INTO `paciente` VALUES (3,'12345680','Patrick','Garcia Abanto','2000-04-21','Av Colonizacion','890765','Sandra'),(4,'12345679','Dennis Josue','Sanchez Hidalgo','1999-09-18','Av los robles','890765','Joshua'),(5,'12345678','Joel','Lopez gutierrez','1998-05-05','Av Colonizacion','985965896','Jair'),(6,'12345677','Ana','Lopez gutierrez','1992-06-09','Av Colonizacion','986532698','Frank'),(8,'12345676','Jose','Flores Meza','1998-08-05','Av los robles','78986545','Pedro'),(9,'12345674','Luis','Manihuari Court','1998-02-02','Av Colonizacion','989569896','Nancy'),(10,'12345673','Sandra','Garcia Gallegos','1999-06-03','Av Colonizacion','7895656','Juan'),(11,'12345672','Daniel','Huanca Lopez','1998-03-03','Av los robles','54656565','Dennis'),(12,'12345671','Carlos','Garcia Perez','1996-03-03','Av tupac','65986532','Patrick');
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ CREATE TABLE `personalmedico` (
 
 LOCK TABLES `personalmedico` WRITE;
 /*!40000 ALTER TABLE `personalmedico` DISABLE KEYS */;
-INSERT INTO `personalmedico` VALUES (1,'75843447','Luis','Lopez Garcia','1970-05-12','Av tupac','890765111','8991',2,1),(2,'78945613','Josue','Lopez Montalvan','1980-11-12','Av tupac','986532741','8992',1,5),(3,'78945612','Ana','Perez Gutierrez','1990-09-12','Av Colonizacion','890765333','8993',1,4),(4,'78945630','Denis Josue','Sanchez Hidalgo','2000-05-12','Av tupac','890765','8993',1,4),(6,'985365458','Dorge','Esquivel Salazar','1999-08-04','Jr calle 14','985698324','7854',2,1),(9,'45451515','ngcghg','sdcsdc dssfsd','1999-02-16','cdsfs dsfdsf','454545454','4521',2,1),(10,'55555555','bvnbvnb','mhbhjjvbhj','1998-05-06','hgch','456985632','4562',2,1),(11,'56454545','hjgjcgtcgt','tgtrtrht5','1998-05-05','gtfhdhdhg','4554545','7845',2,1),(16,'11111111','bkbkbk','bjbjbb','1986-02-02','hgfjgjg','6464545','54545',2,1),(17,'22222222','jhggj','hgjh','1995-02-02','jgfhfg','455454','455445',1,13);
+INSERT INTO `personalmedico` VALUES (1,'12345680','Luis','Lopez Garcia','1970-05-12','Av tupac','890765111','8991',2,1),(2,'12345679','Josue','Lopez Montalvan','1980-11-12','Av tupac','986532741','8992',1,5),(3,'12345678','Ana','Perez Gutierrez','1990-09-12','Av Colonizacion','890765333','8993',1,4),(4,'12345677','Denis Josue','Sanchez Hidalgo','2000-05-12','Av tupac','890765','8993',1,4),(6,'12345676','Dorge','Esquivel Salazar','1999-08-04','Jr calle 14','985698324','7854',2,1),(9,'12345675','Pedro','Garcia Perez','1999-02-16','Av Colonizacion','454545454','4521',2,1),(10,'12345674','Sara','Huanio Salas','1998-05-06','Av tupac','456985632','4562',2,1),(11,'12345673','Pablo','Lopez Garcia','1998-05-05','Av los robles','4554545','7845',2,1),(16,'12345672','Patrick','Garcia Perez','1986-02-02','Av Colonizacion','6464545','54545',2,1),(17,'12345671','Denis','Lopez Garcia','1995-02-02','Av los robles','455454','455445',1,13);
 /*!40000 ALTER TABLE `personalmedico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1013,4 +1013,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16 14:30:30
+-- Dump completed on 2025-01-16 17:44:00
